@@ -1,8 +1,6 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -162,7 +160,19 @@ public class TwitterService {
 		{
 			e1.printStackTrace();
 		}
-		for(Iterator<String> iterator = users.iterator();iterator.hasNext();)
+		for(int i=0;i<users.size();i++)
+		{
+			try 
+			{
+				tweetStatus = twitter.updateStatus("Status Update from Heroku"
+						+ System.currentTimeMillis());
+			} 
+			catch (TwitterException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		/*for(Iterator<String> iterator = users.iterator();iterator.hasNext();)
 		{
 			try 
 			{
@@ -174,7 +184,7 @@ public class TwitterService {
 				e.printStackTrace();
 			}
 			
-		}
+		}*/
 		if (tweetStatus != null)
 			return "Check your Twitter, your tweet has been posted:"
 					+ tweetStatus.getText();
