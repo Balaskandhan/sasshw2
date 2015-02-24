@@ -134,7 +134,7 @@ public class TwitterService {
 			return "BOO! didn't work";
 	}
 	
-	/*@GET
+	@GET
 	@Path("/post")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String msgpost(@QueryParam("user") String user) 
@@ -182,6 +182,6 @@ public class TwitterService {
 			return "BOO! didn't work";
 	
 		
-	}*/
+	}
 	
 }
