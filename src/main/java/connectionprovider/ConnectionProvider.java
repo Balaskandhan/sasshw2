@@ -35,9 +35,10 @@ public class ConnectionProvider {
 			Connection connection = getConnection();
 			Statement stmt = connection.createStatement();
 			//stmt.executeUpdate("INSERT INTO GOODS(THING) VALUES('My cool Item');");
-			ResultSet rs = stmt.executeQuery("SELECT username FROM tokens");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM tokens");
 			while (rs.next()) {
-				System.out.println("username: " + rs.getString("username"));
+				System.out.println("username: " + rs.getString("username") +"\t secret: " + rs.getString("secret")+"\t application: " + rs.getString("application")
+						+"\t oauth: " + rs.getString("oauth"));
 			}
 		} catch (URISyntaxException e) {
 			e.printStackTrace();

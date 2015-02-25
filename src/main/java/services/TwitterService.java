@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -133,7 +134,7 @@ public class TwitterService {
 			return "BOO! didn't work";
 	}
 	
-	@GET
+	@POST
 	@Path("/post")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String msgpost() 
@@ -145,17 +146,17 @@ public class TwitterService {
 		DB db = new DB();
 		users = db.getusers();
 		
+		try 
+		{
+			twitter.setOAuthConsumer(consumerKey, consumerSecret);
+		} 
+		catch (Exception e) 
+		{
+			System.out.println("The OAuthConsumer has likely already been set");
+		}
 		
 		for(String uname : users)
 		{
-			try 
-			{
-				twitter.setOAuthConsumer(consumerKey, consumerSecret);
-			} 
-			catch (Exception e) 
-			{
-				System.out.println("The OAuthConsumer has likely already been set");
-			}
 			try 
 			{
 				accessToken = db.getOAuthToken(uname, "twitter");
@@ -175,19 +176,7 @@ public class TwitterService {
 				e.printStackTrace();
 			}
 		}
-		/*for(Iterator<String> iterator = users.iterator();iterator.hasNext();)
-		{
-			try 
-			{
-				tweetStatus = twitter.updateStatus("Status Update from Heroku"
-						+ System.currentTimeMillis());
-			} 
-			catch (TwitterException e) 
-			{
-				e.printStackTrace();
-			}
-			
-		}*/
+		
 		if (tweetStatus != null)
 			return "Check your Twitter, your tweet has been posted:"
 					+ tweetStatus.getText();
