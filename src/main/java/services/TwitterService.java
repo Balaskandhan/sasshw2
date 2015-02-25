@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -134,7 +133,7 @@ public class TwitterService {
 			return "BOO! didn't work";
 	}
 	
-	@POST
+	@GET
 	@Path("/post")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String msgpost() 
