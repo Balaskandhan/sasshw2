@@ -11,7 +11,11 @@ import twitter4j.auth.AccessToken;
 import connectionprovider.ConnectionProvider;
 
 public class DB {
-	
+	/*public static void main(String args[])
+	{
+		DB db = new DB();
+		db.getusers();
+	}*/
 
 	public AccessToken getOAuthToken(String user, String application) {
 		AccessToken accessToken = null;
@@ -59,7 +63,7 @@ public class DB {
 		}
 	}
 	
-	public static ArrayList<String> getusers()
+	public ArrayList<String> getusers()
 	{
 		ArrayList<String> userslist = new ArrayList<String>();
 		try {
@@ -78,7 +82,7 @@ public class DB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//System.out.println(userslist.toString());
+		System.out.println(userslist.toString());
 		return userslist;		
 	}
 

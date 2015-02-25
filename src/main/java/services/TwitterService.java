@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -135,13 +136,14 @@ public class TwitterService {
 	@GET
 	@Path("/post")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String msgpost(@QueryParam("user") String user) 
+	public String msgpost() 
 	{
 		Twitter twitter = new TwitterFactory().getInstance();
 		Status tweetStatus = null;
 		AccessToken accessToken = null;
 		ArrayList<String> users = new ArrayList<>();
-		users = DB.getusers();
+		DB db = new DB();
+		users = db.getusers();
 		try 
 		{
 			twitter.setOAuthConsumer(consumerKey, consumerSecret);
@@ -150,18 +152,18 @@ public class TwitterService {
 		{
 			System.out.println("The OAuthConsumer has likely already been set");
 		}
-		try 
+		
+		for(String uname : users)
 		{
-			DB db = new DB();
-			accessToken = db.getOAuthToken(user, "twitter");
-			twitter.setOAuthAccessToken(accessToken);
-		} 
-		catch (Exception e1) 
-		{
-			e1.printStackTrace();
-		}
-		for(int i=0;i<users.size();i++)
-		{
+			try 
+			{
+				accessToken = db.getOAuthToken(uname, "twitter");
+				twitter.setOAuthAccessToken(accessToken);
+			} 
+			catch (Exception e1) 
+			{
+				e1.printStackTrace();
+			}
 			try 
 			{
 				tweetStatus = twitter.updateStatus("Status Update from Heroku"
