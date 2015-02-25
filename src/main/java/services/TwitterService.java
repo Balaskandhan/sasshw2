@@ -144,17 +144,18 @@ public class TwitterService {
 		ArrayList<String> users = new ArrayList<>();
 		DB db = new DB();
 		users = db.getusers();
-		try 
-		{
-			twitter.setOAuthConsumer(consumerKey, consumerSecret);
-		} 
-		catch (Exception e) 
-		{
-			System.out.println("The OAuthConsumer has likely already been set");
-		}
+		
 		
 		for(String uname : users)
 		{
+			try 
+			{
+				twitter.setOAuthConsumer(consumerKey, consumerSecret);
+			} 
+			catch (Exception e) 
+			{
+				System.out.println("The OAuthConsumer has likely already been set");
+			}
 			try 
 			{
 				accessToken = db.getOAuthToken(uname, "twitter");
